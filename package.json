@@ -10,4 +10,9 @@
     "dependencies": {
       "express": "^4.16.1"
     }
+    {
+      "name": "my-super-amazing-app",
+      "version": "1.0.0",
+      "private": true
+    }
   }
