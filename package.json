@@ -4,15 +4,14 @@
     "description": "Node.js on Docker",
     "author": "First Last <first.last@example.com>",
     "main": "server.js",
+     "repository" : {     
+     "type" : "git",
+      "url" : "http://github.com/jenkins-nodejs-docker-k8s.git" 
+   },
     "scripts": {
       "start": "node server.js"
     },
     "dependencies": {
       "express": "^4.16.1"
-    }
-    {
-      "name": "my-super-amazing-app",
-      "version": "1.0.0",
-      "private": true
     }
   }
