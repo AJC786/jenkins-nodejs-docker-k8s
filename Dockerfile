@@ -1,8 +1,8 @@
 FROM node:14
 WORKDIR /usr/src/app
 COPY package*.json ./
-RUN npm install
-RUN npm install express
+RUN sudo npm install
+RUN sudo npm install express
 COPY . .
 EXPOSE 5000
 CMD [ "node", "server.js" ]
