@@ -12,7 +12,7 @@ pipeline {
         }
         stage('Build image') {
             steps {
-                sh 'docker build -t $dockerimagename'
+                sh 'docker build -t $dockerimagename .'
             }
         }
         stage('publish image to dockerhub') {
