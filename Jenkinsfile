@@ -1,49 +1,27 @@
 pipeline {
-
-  environment {
-    dockerimagename = "pdockersavant/ethansdemo"
-    dockerImage = ""
-  }
-
-  agent any
-
-  stages {
-
-    stage('Checkout Source') {
-      steps {
-        git 'https://github.com/devopscloudworld/jenkins-nodejs-docker-k8s.git'
-      }
+    agent any
+    environment {
+      dockerimagename = "ajaydocker55/nodeapp"
+      dockerhub = credentials('dockerhub')
     }
-
-    stage('Build image') {
-      steps{
-        script {
-          dockerImage = docker.build dockerimagename
+    stages {
+        stage('Checkout') {
+            steps {
+                git url: 'https://github.com/AJC786/jenkins-nodejs-docker-k8s.git', branch: 'main'
+            }
         }
-      }
-    }
-
-    stage('Pushing Image') {
-      environment {
-               registryCredential = 'dockerhub'
-           }
-      steps{
-        script {
-          docker.withRegistry( 'https://registry.hub.docker.com', registryCredential ) {
-            dockerImage.push("latest")
-          }
+        stage('Build image') {
+            steps {
+                sh 'docker build -t $dockerimagename'
+            }
         }
-      }
-    }
-
-    stage('Deploying nodejs container to Kubernetes') {
-      steps {
-        script {
-          kubernetesDeploy(configs: "deployment.yaml", "service.yaml")
+        stage('publish image to dockerhub') {
+            steps {
+                sh 'docker image ls'
+                sh 'docker logout'
+                sh 'echo $dockerhub_PSW | docker login -u $dockerhub_USR --password-stdin'
+                sh 'docker push ajaydocker55/nodeapp'
+            }
         }
-      }
     }
-
-  }
-
 }
